@@ -1,0 +1,8 @@
+@model Message
+<h2>Post a Message</h2>
+ <form asp-action="AddMessage" asp-controller="Dashboard" method="post">
+        <span asp-validation-for="Content"></span><br>
+        <label asp-for="Content"></label><br>
+        <textarea style="width:600px; resize:none;" asp-for="Content"></textarea><br>
+<button>Post</button>
+</form> 

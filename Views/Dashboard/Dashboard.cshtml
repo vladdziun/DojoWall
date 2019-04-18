@@ -1,0 +1,26 @@
+@model ModelWrapper
+<body>
+<partial name="DashboardPartial" />
+<partial model="@Model.Message"  name="AddMessagePartial" />
+@foreach (var m in @Model.Messages) 
+{
+    <p><b> @m.User.FirstName @m.User.LastName - @m.CreatedAt</b></p>
+    <p>@m.Content</p>
+   @foreach (var c in @Model.Comments)
+   {
+       @if(@c.MessageId == @m.MessageId)
+       {
+           <p><b> @c.User.FirstName @c.User.LastName - @m.CreatedAt</b></p>
+           <p>@c.Content</p>
+       }
+   }
+ <form asp-action="AddComment" asp-controller="Dashboard" method="post">
+        <span asp-validation-for="Comment.Content"></span><br>
+        <label asp-for="Comment.Content"></label><br>
+        <textarea style="width:600px; resize:none;" asp-for="Comment.Content"></textarea><br>
+        <input type ="hidden" asp-for="Comment.MessageId" value = "@m.MessageId">
+<button>Comment</button>
+</form> 
+
+}
+</body>
